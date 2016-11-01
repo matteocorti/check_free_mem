@@ -1,4 +1,4 @@
-%define version          1.1.1
+%define version          1.1.2
 %define release          1
 %define sourcename       check_free_mem
 %define packagename      nagios-plugins-check-free-mem
@@ -54,6 +54,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/%{sourcename}.1*
 
 %changelog
+* Tue Nov  1 2016 Matteo Corti <matteo@corti.li> - 1.1.2-1
+- Updated to 1.1.2
+
 * Sun Mar 15 2015 Matteo Corti <matteo.corti@id.ethz.ch> - 1.1.1-1
 - Updated to 1.1.1
 
