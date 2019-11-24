@@ -1,4 +1,5 @@
 # Load the Module::Install bundled in ./inc/
+use lib '.'; # added since from Perl 5.26 '.' is no more in @INC
 use inc::Module::Install;
 
 ##############################################################################
@@ -19,22 +20,11 @@ my %prereqs = (
     'English'                       => 0,
     'File::Slurp'                   => 0,
     'Getopt::Long'                  => 0,
+    'Monitoring::Plugin'            => 0,
+    'Monitoring::Plugin::Getopt'    => 0,
+    'Monitoring::Plugin::Threshold' => 0,
     'version'                       => 0,    
 );
-
-if( eval { require Monitoring::Plugin } ) {
-    $prereqs{'Monitoring::Plugin'} = 0;
-}
-else {
-    $prereqs{'Nagios::Plugin'} = 0;
-}
-
-if( eval { require Monitoring::Plugin::Threshold } ) {
-    $prereqs{'Monitoring::Plugin::Threshold'} = 0;
-}
-else {
-    $prereqs{'Nagios::Plugin::Threshold'} = 0;
-}
 
 install_script  'check_free_mem';
 
