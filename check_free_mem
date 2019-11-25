@@ -1,4 +1,6 @@
-#!perl -- ## no critic (Modules::ProhibitExcessMainComplexity)
+#!perl
+
+# no critic (Modules::ProhibitExcessMainComplexity)
 
 use strict;
 use warnings;
@@ -6,7 +8,6 @@ use warnings;
 use 5.00800;
 
 use Carp;
-use Data::Dumper;
 use English qw(-no_match_vars);
 use File::Slurp;
 use Getopt::Long;
@@ -16,6 +17,8 @@ use Monitoring::Plugin::Threshold;
 use Readonly;
 
 our $VERSION = '1.2.0';
+
+Readonly my $HUNDRED => 100;
 
 # IMPORTANT: Nagios plugins could be executed using embedded perl in this case
 #            the main routine would be executed as a subroutine and all the
@@ -137,23 +140,19 @@ sub check_positive_integer {
 }
 
 sub get_value {
-    
-    my $string = shift;
-    my @lines = @_;
-    
-    my @matching = grep { /^$string/ } @lines;
+
+    my @parameters = @_;
+    my $string     = shift @parameters;
+
+    my @matching = grep { /^$string/mxs } @parameters;
     if ( @matching != 1 ) {
-	$plugin->nagios_exit(
-	    $plugin->UNKNOWN,
-	    "Error parsing /proc/meminfo: $string not found"
-	    );
-    }    
-    $matching[0] =~ s/.+:\ +([0-9]+).+/$1/;    
-    if ( ! check_positive_integer( $matching[0] ) ) {
-	$plugin->nagios_exit(
-	    $plugin->UNKNOWN,
-	    "Error parsing /proc/meminfo: no value found for $string"
-	    );
+        $plugin->nagios_exit( $plugin->UNKNOWN,
+            "Error parsing /proc/meminfo: $string not found" );
+    }
+    $matching[0] =~ s/.+:[ ]+(\d+).+/$1/mxs;
+    if ( !check_positive_integer( $matching[0] ) ) {
+        $plugin->nagios_exit( $plugin->UNKNOWN,
+            "Error parsing /proc/meminfo: no value found for $string" );
     }
     return $matching[0];
 
@@ -181,7 +180,7 @@ $result = GetOptions(
         #<<<
         print "check_free_mem version $VERSION\n"; ## no critic (RequireCheckedSyscall)
         #>>>
-        exit 3;    ## no critic (ValuesAndExpressions::ProhibitMagicNumbers)
+        exit UNKNOWN;
     },
     'warning|w=i' => \$warning,
 );
@@ -199,8 +198,7 @@ if ($help) {
 if (   !defined $critical
     || !$critical =~ /\d+/mxs
     || $critical < 0
-    || $critical >
-    100 )    ## no critic (ValuesAndExpressions::ProhibitMagicNumbers)
+    || $critical > $HUNDRED )
 {
     usage(
         -exitval => $plugin->UNKNOWN,
@@ -210,8 +208,7 @@ if (   !defined $critical
 if (   !defined $critical
     || !$warning =~ /\d+/mxs
     || $warning < 0
-    || $warning >
-    100 )    ## no critic (ValuesAndExpressions::ProhibitMagicNumbers)
+    || $warning > $HUNDRED )
 {
     usage(
         -exitval => $plugin->UNKNOWN,
@@ -226,11 +223,11 @@ if ( $critical > $warning ) {
 }
 
 $threshold = Monitoring::Plugin::Threshold->set_thresholds(
-    warning  => 100 - $warning,
-    critical => 100 - $critical,
+    warning  => $HUNDRED - $warning,
+    critical => $HUNDRED - $critical,
 );
 
-if ( ! -r '/proc/meminfo' ) {
+if ( !-r '/proc/meminfo' ) {
     $plugin->plugin_exit( UNKNOWN, '/proc/meminfo is not readable' );
 }
 
@@ -241,23 +238,15 @@ my $output;
 
 verbose "Reading /proc/meminfo\n";
 
-open $output, q{<}, '/proc/meminfo'
-    or $plugin->nagios_exit(
-	$plugin->UNKNOWN,
-	"Cannot open /proc/meminfo: $OS_ERROR"
-    );
-
-# read the whole file
+open $output, q{<},
+  '/proc/meminfo'
+  or $plugin->nagios_exit( $plugin->UNKNOWN,
+    "Cannot open /proc/meminfo: $OS_ERROR" );
 my @lines = read_file($output);
-
 chomp @lines;
-
-if (  !( close $output ) )
-{
-    $plugin->nagios_exit(
-	$plugin->UNKNOWN,
-	"Error while closing /proc/meminfo: $OS_ERROR"
-	);
+if ( !( close $output ) ) {
+    $plugin->nagios_exit( $plugin->UNKNOWN,
+        "Error while closing /proc/meminfo: $OS_ERROR" );
 }
 
 if ( $verbosity > 1 ) {
@@ -267,7 +256,7 @@ if ( $verbosity > 1 ) {
 }
 
 $free  = get_value( 'MemAvailable', @lines );
-$total = get_value( 'MemTotal', @lines );
+$total = get_value( 'MemTotal',     @lines );
 
 $plugin->add_perfdata(
     label => 'total',
@@ -282,8 +271,8 @@ $plugin->add_perfdata(
 );
 
 $plugin->nagios_exit(
-    $threshold->get_status( 100 - $free / $total * 100 ) , 
-    'free ' . ( sprintf '%.0f', $free/ $total * 100  ) . q{%}
+    $threshold->get_status( $HUNDRED - $free / $total * $HUNDRED ),
+    'free ' . ( sprintf '%.0f', $free / $total * $HUNDRED ) . q{%}
 );
 
 1;

@@ -1,3 +1,4 @@
+2019-11-25   Version 1.2.0: Now uses /proc/meminfo and MemAvailable
 2016-11-01   Version 1.1.2: Fixes a bug when free is not reporting buffers and caches
 2015-03-15   Version 1.1.1: Support for RHEL 6 and both Nagios:: and Monitoring:: modules
 2008-01-14   Version 0.11.2: corrected a problem in the threshold computation

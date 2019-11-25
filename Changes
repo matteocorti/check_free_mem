@@ -1,3 +1,7 @@
+2019-11-25  Matteo Corti  <matteo@corti.li>
+
+        * check_free_mem: Now uses /proc/meminfo and MemAvailable
+
 2016-11-01  Matteo Corti  <matteo@corti.li>
 
 	* check_free_mem: Fixes a bug when free is not reporting buffers and caches

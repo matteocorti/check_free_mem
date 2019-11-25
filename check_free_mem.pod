@@ -10,12 +10,11 @@ check_free_mem is a Nagios plugin to check the amount of free real memory
 
 =head1 VERSION
 
-Version 1.1.2
+Version 1.2.0
 
 =head1 SYNOPSIS
 
  check_free_mem --critical=critical --warning=warning
-            [--swap]
             [--verbose]
             [--version|--help]
 
@@ -24,7 +23,6 @@ Version 1.1.2
   --warning,-w    warning    specify warning threshold for the percentage of free memory
 
  Options:
-  --swap,-s                  process also swap
   --version,V                print version number
   --verbose,-v               be more verbose (can be repeated)
 
@@ -37,8 +35,6 @@ Version 1.1.2
     --critical,-c       minumal percentage free memory (mandatory)
 
     --warning,-w        warning threshold for the percentage of free memory (mandatory)
-
-    --swap,-s           process also swap
 
     --help,-h,-?        this help screen
 
@@ -76,9 +72,13 @@ check_free_mem depends on
 
 =item * Getopt::Long
 
-=item * Monitoring::Plugin (or Nagios::Plugin)
+=item * Monitoring::Plugin
 
-=item * Monitoring::Plugin::Threshold (or Nagios::Plugin::Threshold)
+=item * Monitoring::Plugin::Getopt
+
+=item * Monitoring::Plugin::Threshold
+
+=item * Readonly
 
 =item * version
 
@@ -109,7 +109,7 @@ Matteo Corti <matteo@corti.li>
 =head1 LICENSE AND COPYRIGHT
 
 Copyright (c) 2007, ETH Zurich.
-Copyright (c) 2015, Matteo Corti.
+Copyright (c) 2007-2019, Matteo Corti.
 
 This module is free software; you can redistribute it and/or modify it
 under the terms of GNU general public license (gpl) version 3.

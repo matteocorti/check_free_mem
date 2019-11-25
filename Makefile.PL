@@ -23,6 +23,7 @@ my %prereqs = (
     'Monitoring::Plugin'            => 0,
     'Monitoring::Plugin::Getopt'    => 0,
     'Monitoring::Plugin::Threshold' => 0,
+    'Readonly'                      => 0,
     'version'                       => 0,    
 );
 
