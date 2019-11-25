@@ -2,6 +2,18 @@
 
 # no critic (Modules::ProhibitExcessMainComplexity)
 
+# check_free_mem is a Nagios plugin that checks the amount of free real
+# memory on a Linux system
+#
+# See  the INSTALL file for installation instructions
+#
+# Copyright (c) 2007-2019 Matteo Corti <matteo@corti.li>
+#
+# This module is free software; you can redistribute it and/or modify it
+# under the terms of GNU general public license (gpl) version 3,
+# or (at your option) any later version.
+# See the COPYING file for details.
+
 use strict;
 use warnings;
 

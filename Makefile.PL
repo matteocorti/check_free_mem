@@ -24,7 +24,7 @@ my %prereqs = (
     'Monitoring::Plugin::Getopt'    => 0,
     'Monitoring::Plugin::Threshold' => 0,
     'Readonly'                      => 0,
-    'version'                       => 0,    
+    'version'                       => 0,
 );
 
 install_script  'check_free_mem';
