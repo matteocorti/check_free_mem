@@ -23,6 +23,7 @@ Source:     http://www.id.ethz.ch/people/allid_list/corti/%{sourcename}-%{versio
 BuildRequires: perl(ExtUtils::MakeMaker)
 
 Requires:      nagios-plugins
+Requires:      perl(Readonly)
 
 %description
 check_free_mem is a Nagios plugin that checks the amount of free physical memory
