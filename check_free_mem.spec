@@ -9,7 +9,7 @@
 
 Summary:    Nagios plugin that checks the amount of free physical memory
 Name:       %{packagename}
-Obsoletes:  check_free_mem
+Obsoletes:  check_free_mem <= 100
 Version:    %{version}
 Release:    %{release}%{?dist}
 License:    GPLv3+
@@ -58,7 +58,7 @@ rm -rf $RPM_BUILD_ROOT
 * Fri Jun 26 2020 Matteo Corti <matteo@corti.li> - 1.2.0-1
 - Added dependency to Readonly
 
-* Tue Nov 25 2019 Matteo Corti <matteo@corti.li> - 1.2.0-0
+* Mon Nov 25 2019 Matteo Corti <matteo@corti.li> - 1.2.0-0
 - Updated to 1.2.0
 
 * Tue Nov  1 2016 Matteo Corti <matteo@corti.li> - 1.1.2-1
