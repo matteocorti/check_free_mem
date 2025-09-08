@@ -112,6 +112,12 @@ case ${DIST} in
 	    DIST='epel'
 	    RELEASE='8'
         ;;
+    el9)
+        RPMDIR="${WEBROOT}/epel/9/${ARCH}"
+        SRPMDIR="${WEBROOT}/epel/9/SRPMS"
+	    DIST='epel'
+	    RELEASE='8'
+        ;;
     *)
         echo "Unknown distribution ${DIST}" 1>&2
         exit 1
