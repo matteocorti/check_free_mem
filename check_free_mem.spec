@@ -1,5 +1,5 @@
 %define version          1.3.0
-%define release          1
+%define release          0
 %define sourcename       check_free_mem
 %define packagename      nagios-plugins-check-free-mem
 %define nagiospluginsdir %{_libdir}/nagios/plugins
