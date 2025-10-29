@@ -7,7 +7,7 @@
 #
 # See  the INSTALL file for installation instructions
 #
-# Copyright (c) 2007-2019 Matteo Corti <matteo@corti.li>
+# Copyright (c) 2007-2025 Matteo Corti <matteo@corti.li>
 #
 # This module is free software; you can redistribute it and/or modify it
 # under the terms of GNU general public license (gpl) version 3,
@@ -28,7 +28,7 @@ use Monitoring::Plugin::Getopt;
 use Monitoring::Plugin::Threshold;
 use Readonly;
 
-our $VERSION = '1.2.0';
+our $VERSION = '1.3.0';
 
 Readonly my $HUNDRED => 100;
 
@@ -207,8 +207,9 @@ if ( !$result ) {
 if ($help) {
     usage( -exitval => $plugin->UNKNOWN, );
 }
+
 if (   !defined $critical
-    || !$critical =~ /\d+/mxs
+    || $critical !~ /\d+/mxs
     || $critical < 0
     || $critical > $HUNDRED )
 {
@@ -217,8 +218,8 @@ if (   !defined $critical
         -message => 'Could not parse "critical"',
     );
 }
-if (   !defined $critical
-    || !$warning =~ /\d+/mxs
+if (   !defined $warning
+    || $warning !~ /\d+/mxs
     || $warning < 0
     || $warning > $HUNDRED )
 {

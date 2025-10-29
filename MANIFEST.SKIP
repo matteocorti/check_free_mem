@@ -3,6 +3,8 @@
 ^Build$
 ^blib
 ~$
+\.git
+\.gitignore
 \.bak$
 \.sw.$
 \.svn

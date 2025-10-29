@@ -1,4 +1,4 @@
-%define version          1.2.0
+%define version          1.3.0
 %define release          1
 %define sourcename       check_free_mem
 %define packagename      nagios-plugins-check-free-mem
@@ -55,6 +55,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man1/%{sourcename}.1*
 
 %changelog
+* Wed Oct 29 2025 Matteo Corti <matteo@corti.li> - 1.3.0-0
+- Updated to 1.3.0
+
 * Fri Jun 26 2020 Matteo Corti <matteo@corti.li> - 1.2.0-1
 - Added dependency to Readonly
 

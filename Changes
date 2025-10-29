@@ -1,3 +1,7 @@
+2025-10-29  Matteo Corti  <matteo@corti.li>
+
+        * check_free_mem (get_value): fixed a bug in the command line arguments sanity checks
+
 2019-11-25  Matteo Corti  <matteo@corti.li>
 
         * check_free_mem: Now uses /proc/meminfo and MemAvailable
